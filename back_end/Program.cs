@@ -1,8 +1,14 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using GISDemo.Entities;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add DbContext to the container
+builder.Services.AddDbContext<GISDbContext>(options => {
+    var dbconfig = builder.Configuration.GetSection("Database");
+    string connStr = dbconfig.GetSection("ConnStr").Value;
+    options.UseNpgsql(connStr, o => o.UseNetTopologySuite());
+});
 
 // Add services to the container.
 
