@@ -22,10 +22,4 @@ public class TrafficCollisionsController : ControllerBase
         var entities = features.Select(TrafficCollisionEntity.Create).ToArray();
         TrafficCollisionRepository.AddCollisions(entities);
     }
-
-    [HttpPost]
-    public void CreateTrafficCollisions1(TestRequest request)
-    {
-        
-    }
 }
