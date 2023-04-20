@@ -3,16 +3,17 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
-import './OpenLayersMap.css'
+import './OpenLayersMap.css';
 
-interface MapProps {
-    initialCenter: [number, number];
-    initialZoom: number;
+export interface MapProps {
+    center: [number, number];
+    zoom: number;
+    minZoom: number | undefined;
+    maxZoom: number | undefined;
 }
 
-const OpenLayersMap: React.FC<MapProps> = ({initialCenter, initialZoom}) => {
+const OpenLayersMap: React.FC<MapProps> = (mapProps : MapProps) => {
     const mapRef = useRef<HTMLDivElement>(null);
-    const [map, setMap] = useState<Map | null>(null);
 
     useEffect(() => {
         if (!mapRef.current)
@@ -27,12 +28,10 @@ const OpenLayersMap: React.FC<MapProps> = ({initialCenter, initialZoom}) => {
                 }),
             ],
             view: new View({
-                center: initialCenter,
-                zoom: initialZoom,
+                ...mapProps,
+                projection: 'EPSG:4326'
             }),
         });
-
-        setMap(mapObject);
 
         return () => {
             // destroy map object
@@ -40,7 +39,7 @@ const OpenLayersMap: React.FC<MapProps> = ({initialCenter, initialZoom}) => {
         };
     }, []);
 
-    return <div ref={mapRef} className="map" />; // 使用 mapRef
+    return <div ref={mapRef} className="map" />;
 };
 
 export default OpenLayersMap;

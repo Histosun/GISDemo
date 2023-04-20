@@ -1,10 +1,17 @@
 import React from "react";
-import OpenLayersMap from "./components/OpenLayersMap";
+import OpenLayersMap, { MapProps } from "./components/OpenLayersMap";
 
 
 const App: React.FC = () => {
+  const mapProps: MapProps = {
+    center: [-75.6972, 45.4215],
+    zoom: 12,
+    maxZoom: 20,
+    minZoom: 12
+  }
+
   return (
-    <OpenLayersMap initialCenter={[-12080385, 7567433]} initialZoom={4}/>
+    <OpenLayersMap {...mapProps} />
   );
 };
 
