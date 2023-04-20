@@ -1,3 +1,4 @@
+using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
 
 namespace GISDemo.Entities;
@@ -14,4 +15,17 @@ public class TrafficCollisionEntity
     public int F2018Total { get; set; }
     public int F2019Total { get; set; }
     public Point Geometry { get; set; }
+
+    public static TrafficCollisionEntity Create(IFeature feature)
+    {
+        TrafficCollisionEntity collision = new();
+        collision.TotalCollisions = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("Total_Collisions"));
+        collision.F2015Total = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("F2015_Total"));
+        collision.F2016Total = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("F2016_Total"));
+        collision.F2017Total = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("F2017_Total"));
+        collision.F2018Total = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("F2018_Total"));
+        collision.F2019Total = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("F2019_Total"));
+        collision.Geometry = (Point)feature.Geometry;
+        return collision;
+    }
 }

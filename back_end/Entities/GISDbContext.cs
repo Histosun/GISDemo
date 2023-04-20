@@ -6,7 +6,7 @@ namespace GISDemo.Entities;
 public class GISDbContext : DbContext
 {
 
-    public DbSet<TrafficCollisionEntity> TrafficCollision { get; set; }
+    public DbSet<TrafficCollisionEntity> TrafficCollisions { get; set; }
 
     public GISDbContext(DbContextOptions<GISDbContext> options) : base(options) { }
 
