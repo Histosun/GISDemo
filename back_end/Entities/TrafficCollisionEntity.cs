@@ -7,7 +7,6 @@ public class TrafficCollisionEntity
 {
     public int Id { get; set; }
     public string Location { get; set; }
-    public int GeoId { get; set; }
     public int TotalCollisions { get; set; }
     public int F2015Total { get; set; }
     public int F2016Total { get; set; }
@@ -25,6 +24,7 @@ public class TrafficCollisionEntity
         collision.F2017Total = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("F2017_Total"));
         collision.F2018Total = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("F2018_Total"));
         collision.F2019Total = Decimal.ToInt32((Decimal)feature.Attributes.GetOptionalValue("F2019_Total"));
+        collision.Location = (string)feature.Attributes.GetOptionalValue("Location");
         collision.Geometry = (Point)feature.Geometry;
         return collision;
     }

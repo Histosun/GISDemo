@@ -19,9 +19,6 @@ public class TrafficCollisionConfig : IEntityTypeConfiguration<TrafficCollisionE
             .HasColumnName("location")
             .IsRequired();
 
-        builder.Property(e => e.GeoId)
-            .HasColumnName("geo_id");
-
         builder.Property(e => e.TotalCollisions)
             .HasColumnName("total_collisions")
             .HasDefaultValue<int>(0);

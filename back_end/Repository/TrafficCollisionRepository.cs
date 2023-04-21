@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using GISDemo.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +17,7 @@ public class TrafficCollisionRepository
         return TrafficCollisions.Find(id);
     }
 
-    public TrafficCollisionEntity[] GetCollisions()
+    public TrafficCollisionEntity[] GetAll()
     {
         return TrafficCollisions.ToArray();
     }

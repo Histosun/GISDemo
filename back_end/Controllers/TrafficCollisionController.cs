@@ -1,6 +1,5 @@
 using GISDemo.Entities;
 using GISDemo.Repositories;
-using GISDemo.Requests;
 using Microsoft.AspNetCore.Mvc;
 using NetTopologySuite.Features;
 
@@ -11,15 +10,24 @@ namespace GISDemo.Controllers;
 public class TrafficCollisionsController : ControllerBase
 {
     private readonly TrafficCollisionRepository TrafficCollisionRepository;
+    private readonly GISDbContext DbContext;
 
-    public TrafficCollisionsController(TrafficCollisionRepository repository) {
+    public TrafficCollisionsController(TrafficCollisionRepository repository, GISDbContext context) {
         TrafficCollisionRepository = repository;
+        DbContext = context;
     }
 
     [HttpPost]
     public void CreateTrafficCollisions(FeatureCollection features)
     {
         var entities = features.Select(TrafficCollisionEntity.Create).ToArray();
-        TrafficCollisionRepository.AddCollisions(entities);
+        DbContext.AddRange(entities);
+        DbContext.SaveChanges();
+    }
+
+    [HttpGet]
+    public TrafficCollisionEntity[] GetTrafficCollisions()
+    {
+        return TrafficCollisionRepository.GetAll();
     }
 }
