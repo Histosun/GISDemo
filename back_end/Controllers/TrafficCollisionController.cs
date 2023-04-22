@@ -26,8 +26,8 @@ public class TrafficCollisionsController : ControllerBase
     }
 
     [HttpGet]
-    public TrafficCollisionEntity[] GetTrafficCollisions()
+    public IEnumerable<IFeature> GetTrafficCollisions()
     {
-        return TrafficCollisionRepository.GetAll();
+        return TrafficCollisionRepository.GetAll().Select(it => it.ToFeature());
     }
 }

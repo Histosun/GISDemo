@@ -28,4 +28,12 @@ public class TrafficCollisionEntity
         collision.Geometry = (Point)feature.Geometry;
         return collision;
     }
+
+    public IFeature ToFeature(){
+        var attributes = new AttributesTable();
+        attributes.Add("id", Id);
+        attributes.Add("total", TotalCollisions);
+        attributes.Add("Location", Location);
+        return new Feature(Geometry, attributes);
+    }
 }

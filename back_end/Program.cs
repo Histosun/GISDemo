@@ -38,6 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(builder =>builder.WithOrigins("http://localhost:3000").WithMethods("GET", "POST", "PUT", "DELETE").AllowAnyHeader());
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
